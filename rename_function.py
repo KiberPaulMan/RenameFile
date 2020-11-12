@@ -6,6 +6,7 @@ class RenameFunction:
     def __init__(self, path_files):
         self.path_files = path_files
         self.list_of_files = self.reading_name_files_from_folder()
+        # Переход в директорию path_files для работы с файлами
         os.chdir(self.path_files)
 
     def reading_name_files_from_folder(self):
