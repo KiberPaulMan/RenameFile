@@ -1,12 +1,13 @@
-import os
+from rename_function import RenameFunction
 
 
-# 1. открыть папку с файлами и считать их в список
 files_path = "C:\\Users\putincev\Desktop\photos"
+rf = RenameFunction(files_path)
+files = rf.reading_name_files_from_folder()
+print(files)
 
-spisok = os.listdir(files_path)
+rf.replace_char('r', '')
+print(rf.reading_name_files_from_folder())
 
-for x in spisok:
-    print(x)
 
 
