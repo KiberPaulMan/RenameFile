@@ -8,10 +8,7 @@ def read_files_from_directory(event):
     name = filedialog.askdirectory()
     text.insert(1.0, name)
 
-
-# def choiсe_method(event):
-
-
+# https://younglinux.info/tkinter/bind.php
 rf = RenameFunction("C:\\")
 
 # Основное окно
