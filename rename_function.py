@@ -4,11 +4,7 @@ import os
 class RenameFunction:
     """Класс для работы с переименовыванием файлов"""
     def __init__(self, path_files):
-        self.list_of_files = self.reading_name_files_from_folder(path_files)
-
-    def reading_name_files_from_folder(self, path_files):
-        """Возвращает список файлов из указанной директории path_files"""
-        return os.listdir(path_files)
+        self.list_of_files = os.listdir(path_files)
 
     def replace_char(self, input_str):
         """Производит замену с replace_src на replace_dist каждого файла списка list_of_files"""
