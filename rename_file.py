@@ -1,15 +1,32 @@
-from tkinter import Tk, filedialog, Text, \
-    Button, Radiobutton, Checkbutton
+from tkinter import Tk, filedialog, Text, Button, Label, LabelFrame
+from tkinter.messagebox import *
 from rename_function import RenameFunction
+
+# Создаем объект класса RenameFunction
+rf = RenameFunction()
 
 
 def read_files_from_directory(event):
-    text.delete(1.0, "end")
-    name = filedialog.askdirectory()
-    text.insert(1.0, name)
+    dir_field.delete(1.0, "end")
+    rf.path_files = filedialog.askdirectory()
+    dir_field.insert(1.0, rf.path_files)
+    rf.read_files_from_folder()
 
-# https://younglinux.info/tkinter/bind.php
-rf = RenameFunction("C:\\")
+
+def press_button_replace_char(event):
+    chars = char_field.get(1.0, "end")
+    rf.replace_char(chars)
+
+
+def press_button_delete_char(event):
+    chars = char_field.get(1.0, "end")
+    rf.delete_char(chars)
+
+
+def press_button_add_char(event):
+    chars = char_field.get(1.0, "end")
+    rf.add_char(chars)
+
 
 # Основное окно
 root = Tk()
@@ -18,39 +35,57 @@ root.title("Rename Files")
 root.geometry("600x400")
 root.resizable(width=False, height=False)
 
+# Label для директории
+dir_label = Label(root, text="Открыть папку:", width=15, height=1, bg="#81cc96")  # , bg="#81cc96"
+dir_label.place(x=250, y=50)
+
 # Поле для ввода и вывода пути к директории
-text = Text(root, width=35, height=1, bg="#404040", fg='white')
-text.place(x=160, y=70)
+dir_field = Text(root, width=35, height=1, bg="#404040", fg='white')
+dir_field.place(x=160, y=70)
+
+
+# Label для ввода символов
+char_label = Label(root, text="Введите символы:", width=15, height=1, bg="#81cc96")  # , bg="#81cc96"
+char_label.place(x=250, y=140)
 
 # Поле для ввода символов
-text2 = Text(root, width=15, height=1, bg="#404040", fg='white')
-text2.place(x=240, y=160)
+char_field = Text(root, width=15, height=1, bg="#404040", fg='white')
+char_field.place(x=240, y=160)
 
-# Кнопка для
-button = Button(root, text='...', height=1)
-button.place(x=444, y=70)
-# При клике на ЛКМ вызывает функцию read_files_from_directory
-button.bind("<Button-1>", read_files_from_directory)
 
-button2 = Button(root, text='Rename', height=1)
-button2.place(x=500, y=360)
-# При клике на ЛКМ вызывает функцию read_files_from_directory
-# button2.bind("<Button-1>", choice_method)
+# Кнопка для выбора директории с файлами
+btn_choice_dir = Button(root, text='...', height=1)
+btn_choice_dir.place(x=444, y=70)
+btn_choice_dir.bind("<Button-1>", read_files_from_directory)
 
-r_button1 = Radiobutton(root, text='Replace chars', value=0)
-r_button1.place(x=100, y=250)
-# r_button1.bind("<Button-1>", ask_press_button_replace)
 
-r_button2 = Radiobutton(root, text='Delete chars', value=1)
-r_button2.place(x=255, y=250)
+# Кнопка для выполения метода replace_char
+btn_replace = Button(root, text='Заменить', height=1)
+btn_replace.place(x=100, y=250)
+btn_replace.bind("<Button-1>", press_button_replace_char)
 
-r_button3 = Radiobutton(root, text='Add chars', value=2)
-r_button3.place(x=400, y=250)
 
-сh_button1 = Checkbutton(root, text="Add begin line", variable=0)
-сh_button2 = Checkbutton(root, text="Add end line", variable=1)
+# Кнопка для выполения метода delete_char
+btn_del = Button(root, text='Удалить', height=1)
+btn_del.place(x=255, y=250)
+btn_del.bind("<Button-1>", press_button_delete_char)
 
-сh_button1.place(x=250, y=300)
-сh_button2.place(x=250, y=330)
 
+# Кнопка для выполения метода delete_char
+btn_add = Button(root, text='Добавить', height=1)
+btn_add.place(x=400, y=250)
+btn_add.bind("<Button-1>", press_button_add_char)
+
+
+# Создаем Frame для описания каждой кнопки программы
+description_frame = LabelFrame(text="Описание программы")
+description_frame.place()
+l1 = Label(description_frame, width=30, height=1, bg='lightgreen')
+l2 = Label(description_frame, width=30, height=1, bg='lightblue')
+l3 = Label(description_frame, width=30, height=1, bg='lightyellow')
+l1.pack()
+l2.pack()
+l3.pack()
+
+# Главный цикл программы
 root.mainloop()
