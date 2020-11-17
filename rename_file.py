@@ -77,15 +77,5 @@ btn_add.place(x=400, y=250)
 btn_add.bind("<Button-1>", press_button_add_char)
 
 
-# Создаем Frame для описания каждой кнопки программы
-description_frame = LabelFrame(text="Описание программы")
-description_frame.place()
-l1 = Label(description_frame, width=30, height=1, bg='lightgreen')
-l2 = Label(description_frame, width=30, height=1, bg='lightblue')
-l3 = Label(description_frame, width=30, height=1, bg='lightyellow')
-l1.pack()
-l2.pack()
-l3.pack()
-
 # Главный цикл программы
 root.mainloop()
