@@ -37,26 +37,42 @@ def press_button_replace():
 
 def press_button_delete():
     top_del = Toplevel()
-    top_del.title("Заменить")
     top_del.geometry("250x250")
     top_del.resizable(width=False, height=False)
     top_del.config(bg="lightblue")
     bg_top_color = "white"
-    submenu_delete_label1 = Label(top_del, text="Введите количество символов для удаления с начала строки:", height=1, bg="lightblue")
-    submenu_delete_text1 = Text(top_del, height=1, bg=bg_top_color, fg='black')
-    submenu_delete_label1.pack()
-    submenu_delete_text1.pack()
-    btn2 = Button(top_del, text='Удалить')
-    if click.get():
-        print('begin', click.get())
+    submenu_delete_label = Label(top_del, text="Введите количество символов для удаления с начала строки:", height=1, bg="lightblue")
+    submenu_delete_text = Text(top_del, height=1, bg=bg_top_color, fg='black')
+    submenu_delete_label.pack()
+    submenu_delete_text.pack()
+    btn = Button(top_del, text='Удалить')
+    if r_but.get() == 1:
+        top_del.title("Удалить с начала строки")
+        btn['command'] = lambda: rf.delete_char(submenu_delete_text.get(1.0, "end"), True)
+    if r_but.get() == 2:
+        top_del.title("Удалить с конца строки")
+        btn['command'] = lambda: rf.delete_char(submenu_delete_text.get(1.0, "end"), False)
+    btn.pack(side="bottom")
 
-    # if r_but_del_begin_str.focus:
-    #     print("begin")
-    #     # btn2['command'] = lambda: rf.delete_char(submenu_delete_text1.get(1.0, "end"), True)
-    # if r_but_del_end_str.focus:
-    #     print("end")
-    #     # btn2['command'] = lambda: rf.delete_char(submenu_delete_text1.get(1.0, "end"), False)
-    btn2.pack(side="bottom")
+
+def press_button_add():
+    top_add = Toplevel()
+    top_add.geometry("250x250")
+    top_add.resizable(width=False, height=False)
+    top_add.config(bg="lightblue")
+    bg_top_color = "white"
+    submenu_add_label = Label(top_add, text="Введите символы для добавления в строку:", height=1, bg="lightblue")
+    submenu_add_text = Text(top_add, height=1, bg=bg_top_color, fg='black')
+    submenu_add_label.pack()
+    submenu_add_text.pack()
+    btn = Button(top_add, text='Добавить')
+    if r_but.get() == 3:
+        top_add.title("Добавить в начало строки")
+        btn['command'] = lambda: rf.add_char(submenu_add_text.get(1.0, "end"), True)
+    if r_but.get() == 4:
+        top_add.title("Добавить в конец строки")
+        btn['command'] = lambda: rf.add_char(submenu_add_text.get(1.0, "end"), False)
+    btn.pack(side="bottom")
 
 
 # Основное окно
@@ -83,35 +99,29 @@ btn_choice_dir.bind("<Button-1>", read_files_from_directory)
 
 
 # --------------------NEW CODE-------------------------------
-r_but_replace = Radiobutton(root, text='Заменить', bg=bg_root_color, value=0)
+r_but = IntVar()
+r_but.set(0)
+r_but_replace = Radiobutton(root, text='Заменить', bg=bg_root_color, value=0, variable=r_but)
 r_but_replace['command'] = press_button_replace
-# r_but_replace.config(state="disable")
 r_but_replace.place(x=90, y=120)
 
 
-click = IntVar()
-click.set(0)
-
-r_but_del_begin_str = Radiobutton(root, text='Удалить с начала строки', bg=bg_root_color, value=1, variable=click)
+r_but_del_begin_str = Radiobutton(root, text='Удалить с начала строки', bg=bg_root_color, value=1, variable=r_but)
 r_but_del_begin_str['command'] = press_button_delete
-
-# r_but_del_begin_str['variable'] = click
-# r_but_replace.config(state="disable")
 r_but_del_begin_str.place(x=190, y=105)
 
-r_but_del_end_str = Radiobutton(root, text='Удалить с конца строки', bg=bg_root_color, value=2, variable=click)
-r_but_del_end_str['command'] = press_button_delete
 
-# r_but_del_begin_str['variable'] = click2
-# r_but_replace.config(state="disable")
+r_but_del_end_str = Radiobutton(root, text='Удалить с конца строки', bg=bg_root_color, value=2, variable=r_but)
+r_but_del_end_str['command'] = press_button_delete
 r_but_del_end_str.place(x=190, y=135)
 
-r_but_add_begin_str = Radiobutton(root, text='Добавить с начала строки', bg=bg_root_color, value=3)
-# r_but_replace.config(state="disable")
+
+r_but_add_begin_str = Radiobutton(root, text='Добавить с начала строки', bg=bg_root_color, value=3, variable=r_but)
+r_but_add_begin_str['command'] = press_button_add
 r_but_add_begin_str.place(x=380, y=105)
 
-r_but_add_end_str = Radiobutton(root, text='Добавить в конец строки', bg=bg_root_color, value=4)
-# r_but_replace.config(state="disable")
+r_but_add_end_str = Radiobutton(root, text='Добавить в конец строки', bg=bg_root_color, value=4, variable=r_but)
+r_but_add_end_str['command'] = press_button_add
 r_but_add_end_str.place(x=380, y=135)
 
 

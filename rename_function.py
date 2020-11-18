@@ -34,15 +34,15 @@ class RenameFunction:
                 index = name.rfind('.')
                 os.rename(name, name[:index - int(num_of_chars)] + name[index:])
 
-    def add_char(self, input_str):
+    def add_char(self, chars, begin):
         """Добавялет chars символов в начало строки, если begin=True, если нет, то в конец"""
-        chars = (input_str.split(',')[0]).strip()
-        begin = int((input_str.split(',')[1]).strip())
+        chars = chars.strip()  # (input_str.split(',')[0]).strip()
+        # begin = begin.strip()  # int((input_str.split(',')[1]).strip())
         self.read_files_from_folder()
         # print(os.getcwd())
         # print("chars = {0}\t begin = {1}".format(chars, begin))
         # print(self.list_of_files)
-        if begin == 1:
+        if begin:
             for name in self.list_of_files:
                 os.rename(name, "" + chars + name)
         else:
