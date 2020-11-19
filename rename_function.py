@@ -23,8 +23,6 @@ class RenameFunction:
     def delete_char(self, num_of_chars, begin):
         """Удаляет num_of_chars символов сначала строки, если флаг begin=True
          и с конца строки, если begin=False"""
-        # num_of_chars = int((input_str.split(',')[0]).strip())
-        # begin = int((input_str.split(',')[1]).strip())
         self.read_files_from_folder()
         if begin:
             for name in self.list_of_files:
@@ -36,12 +34,8 @@ class RenameFunction:
 
     def add_char(self, chars, begin):
         """Добавялет chars символов в начало строки, если begin=True, если нет, то в конец"""
-        chars = chars.strip()  # (input_str.split(',')[0]).strip()
-        # begin = begin.strip()  # int((input_str.split(',')[1]).strip())
+        chars = chars.strip()
         self.read_files_from_folder()
-        # print(os.getcwd())
-        # print("chars = {0}\t begin = {1}".format(chars, begin))
-        # print(self.list_of_files)
         if begin:
             for name in self.list_of_files:
                 os.rename(name, "" + chars + name)

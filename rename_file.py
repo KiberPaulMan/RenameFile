@@ -1,9 +1,15 @@
-from tkinter import Tk, filedialog, Text, Button, Label, Radiobutton, Toplevel, IntVar, LabelFrame
+from tkinter import Tk, filedialog, Text, Button, Label, Radiobutton, IntVar, Frame, Entry
 from rename_function import RenameFunction
 
 # Создаем объект класса RenameFunction
 rf = RenameFunction()
-bg_root_color = "#81cc96"
+
+# Цвета виджетов программы
+bg_root_color = '#77d1c1'
+bg_frame_color = bg_root_color
+bg_dir_field_color = '#ebfaf6'
+bg_entry_field_color = '#ebfaf6'
+bg_submenu_label_color = bg_root_color
 
 
 def read_files_from_directory(event):
@@ -20,73 +26,69 @@ def frame_destroy():
 
 def press_button_replace():
     frame_destroy()
-    frame.pack(side='bottom')
-    bg_top_color = "white"
-    submenu_replace_label1 = Label(frame, text="Заменить с:", height=1, bg="lightblue")
-    submenu_replace_text1 = Text(frame, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
-    submenu_replace_label2 = Label(frame, text="Заменить на:", width=15, height=1, bg="lightblue")
-    submenu_replace_text2 = Text(frame, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
+    frame.place(relx=0.32, rely=0.5, width=220, height=170)
+    submenu_replace_label1 = Label(frame, text="Заменить с:", height=1, bg=bg_submenu_label_color)
+    entry_replace1 = Entry(frame)
+    entry_replace1.config({"background": bg_entry_field_color})
+    submenu_replace_label2 = Label(frame, text="Заменить на:", width=15, height=1, bg=bg_submenu_label_color)
+    entry_replace2 = Entry(frame)
+    entry_replace2.config({"background": bg_entry_field_color})
     submenu_replace_label1.pack()
-    submenu_replace_text1.pack()
+    entry_replace1.pack()
     submenu_replace_label2.pack()
-    submenu_replace_text2.pack()
-    frame['text'] = 'Заменить'
+    entry_replace2.pack()
     btn = Button(frame, text='Заменить')
-    btn['command'] = lambda: rf.replace_char(submenu_replace_text1.get(1.0, "end"),
-                                             submenu_replace_text2.get(1.0, "end"))
+    btn['command'] = lambda: rf.replace_char(entry_replace1.get(),
+                                             entry_replace2.get())
     btn.pack(side='bottom')
 
 
 def press_button_delete():
     frame_destroy()
-    frame.pack(side='bottom')
-    bg_top_color = "white"
-    submenu_delete_label = Label(frame, text="Введите количество символов\n для удаления из строки:", height=2, bg="lightblue")
-    submenu_delete_text = Text(frame, width=15, height=1, bg=bg_top_color, fg='black')
+    frame.place(relx=0.32, rely=0.5, width=220, height=170)
+    submenu_delete_label = Label(frame, text="Введите количество символов\n для удаления из строки:", height=2, bg=bg_submenu_label_color)
+    entry_delete = Entry(frame)
+    entry_delete.config({"background": bg_entry_field_color})
     submenu_delete_label.pack()
-    submenu_delete_text.pack()
+    entry_delete.pack()
     btn = Button(frame, text='Удалить')
     if r_but.get() == 1:
-        frame['text'] = 'Удалить с начала строки'
-        btn['command'] = lambda: rf.delete_char(submenu_delete_text.get(1.0, "end"), True)
+        btn['command'] = lambda: rf.delete_char(entry_delete.get(), True)
     if r_but.get() == 2:
-        frame['text'] = 'Удалить с конца строки'
-        btn['command'] = lambda: rf.delete_char(submenu_delete_text.get(1.0, "end"), False)
+        btn['command'] = lambda: rf.delete_char(entry_delete.get(), False)
     btn.pack(side="bottom")
 
 
 def press_button_add():
     frame_destroy()
-    frame.pack(side='bottom')
-    bg_top_color = "white"
-    submenu_add_label = Label(frame, text="Введите символы для\n добавления в строку:", height=2, bg="lightblue")
-    submenu_add_text = Text(frame, width=15, height=1, bg=bg_top_color, fg='black')
+    frame.place(relx=0.32, rely=0.5, width=220, height=170)
+    submenu_add_label = Label(frame, text="Введите символы для\n добавления в строку:", height=2, bg=bg_submenu_label_color)
+    entry_add = Entry(frame)
+    entry_add.config({"background": bg_entry_field_color})
     submenu_add_label.pack()
-    submenu_add_text.pack()
+    entry_add.pack()
     btn = Button(frame, text='Добавить')
     if r_but.get() == 3:
-        frame['text'] = 'Добавить в начало строки'
-        btn['command'] = lambda: rf.add_char(submenu_add_text.get(1.0, "end"), True)
+        btn['command'] = lambda: rf.add_char(entry_add.get(), True)
     if r_but.get() == 4:
-        frame['text'] = 'Добавить в конец строки'
-        btn['command'] = lambda: rf.add_char(submenu_add_text.get(1.0, "end"), False)
+        btn['command'] = lambda: rf.add_char(entry_add.get(), False)
     btn.pack(side="bottom")
 
 
 # Основное окно
 root = Tk()
-root['bg'] = "#81cc96"
+root['bg'] = bg_root_color
 root.title("Rename Files")
 root.geometry("600x400")
 root.resizable(width=False, height=False)
 
 
 # Label для директории
-dir_label = Label(root, text="Открыть папку:", width=15, height=1, bg=bg_root_color)  # , bg="#81cc96"
+dir_label = Label(root, text="Открыть папку:", width=15, height=1, bg=bg_root_color)
 dir_label.place(x=250, y=50)
 
 # Поле для ввода и вывода пути к директории
-dir_field = Text(root, width=35, height=1, bg="#404040", fg='white')
+dir_field = Text(root, width=35, height=1, bg=bg_dir_field_color)
 dir_field.place(x=160, y=70)
 
 
@@ -96,9 +98,8 @@ btn_choice_dir.place(x=444, y=70)
 btn_choice_dir.bind("<Button-1>", read_files_from_directory)
 
 
-# --------------------NEW CODE-------------------------------
 r_but = IntVar()
-r_but.set(0)
+r_but.set(5)
 r_but_replace = Radiobutton(root, text='Заменить', bg=bg_root_color, value=0, variable=r_but)
 r_but_replace['command'] = press_button_replace
 r_but_replace.place(x=90, y=120)
@@ -122,8 +123,8 @@ r_but_add_end_str = Radiobutton(root, text='Добавить в конец ст�
 r_but_add_end_str['command'] = press_button_add
 r_but_add_end_str.place(x=380, y=135)
 
-
-frame = LabelFrame(root)
+frame = Frame(root)
+frame['bg'] = bg_frame_color
 
 
 # Главный цикл программы
