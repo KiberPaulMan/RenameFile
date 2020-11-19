@@ -17,14 +17,14 @@ def read_files_from_directory(event):
 def press_button_replace():
     top_replace = Toplevel()
     top_replace.title("Заменить")
-    top_replace.geometry("250x250")
+    top_replace.geometry("350x250")
     top_replace.resizable(width=False, height=False)
     top_replace.config(bg="lightblue")
     bg_top_color = "white"
     submenu_replace_label1 = Label(top_replace, text="Заменить с:", height=1, bg="lightblue")
-    submenu_replace_text1 = Text(top_replace, height=1, bg=bg_top_color, fg='black', takefocus=True)
+    submenu_replace_text1 = Text(top_replace, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
     submenu_replace_label2 = Label(top_replace, text="Заменить на:", width=15, height=1, bg="lightblue")
-    submenu_replace_text2 = Text(top_replace, height=1, bg=bg_top_color, fg='black', takefocus=True)
+    submenu_replace_text2 = Text(top_replace, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
     submenu_replace_label1.pack()
     submenu_replace_text1.pack()
     submenu_replace_label2.pack()
@@ -37,12 +37,12 @@ def press_button_replace():
 
 def press_button_delete():
     top_del = Toplevel()
-    top_del.geometry("250x250")
+    top_del.geometry("350x250")
     top_del.resizable(width=False, height=False)
     top_del.config(bg="lightblue")
     bg_top_color = "white"
-    submenu_delete_label = Label(top_del, text="Введите количество символов для удаления с начала строки:", height=1, bg="lightblue")
-    submenu_delete_text = Text(top_del, height=1, bg=bg_top_color, fg='black')
+    submenu_delete_label = Label(top_del, text="Введите количество символов\n для удаления из строки:", height=2, bg="lightblue")
+    submenu_delete_text = Text(top_del, width=15, height=1, bg=bg_top_color, fg='black')
     submenu_delete_label.pack()
     submenu_delete_text.pack()
     btn = Button(top_del, text='Удалить')
@@ -57,12 +57,12 @@ def press_button_delete():
 
 def press_button_add():
     top_add = Toplevel()
-    top_add.geometry("250x250")
+    top_add.geometry("350x250")
     top_add.resizable(width=False, height=False)
     top_add.config(bg="lightblue")
     bg_top_color = "white"
-    submenu_add_label = Label(top_add, text="Введите символы для добавления в строку:", height=1, bg="lightblue")
-    submenu_add_text = Text(top_add, height=1, bg=bg_top_color, fg='black')
+    submenu_add_label = Label(top_add, text="Введите символы для\n добавления в строку:", height=2, bg="lightblue")
+    submenu_add_text = Text(top_add, width=15, height=1, bg=bg_top_color, fg='black')
     submenu_add_label.pack()
     submenu_add_text.pack()
     btn = Button(top_add, text='Добавить')
