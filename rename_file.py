@@ -1,5 +1,4 @@
-from tkinter import Tk, filedialog, Text, Button, Label, Radiobutton, Toplevel, IntVar
-from tkinter.messagebox import *
+from tkinter import Tk, filedialog, Text, Button, Label, Radiobutton, Toplevel, IntVar, LabelFrame
 from rename_function import RenameFunction
 
 # Создаем объект класса RenameFunction
@@ -14,63 +13,62 @@ def read_files_from_directory(event):
     rf.read_files_from_folder()
 
 
+def frame_destroy():
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+
 def press_button_replace():
-    top_replace = Toplevel()
-    top_replace.title("Заменить")
-    top_replace.geometry("350x250")
-    top_replace.resizable(width=False, height=False)
-    top_replace.config(bg="lightblue")
+    frame_destroy()
+    frame.pack(side='bottom')
     bg_top_color = "white"
-    submenu_replace_label1 = Label(top_replace, text="Заменить с:", height=1, bg="lightblue")
-    submenu_replace_text1 = Text(top_replace, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
-    submenu_replace_label2 = Label(top_replace, text="Заменить на:", width=15, height=1, bg="lightblue")
-    submenu_replace_text2 = Text(top_replace, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
+    submenu_replace_label1 = Label(frame, text="Заменить с:", height=1, bg="lightblue")
+    submenu_replace_text1 = Text(frame, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
+    submenu_replace_label2 = Label(frame, text="Заменить на:", width=15, height=1, bg="lightblue")
+    submenu_replace_text2 = Text(frame, width=15, height=1, bg=bg_top_color, fg='black', takefocus=True)
     submenu_replace_label1.pack()
     submenu_replace_text1.pack()
     submenu_replace_label2.pack()
     submenu_replace_text2.pack()
-    btn = Button(top_replace, text='Заменить')
+    frame['text'] = 'Заменить'
+    btn = Button(frame, text='Заменить')
     btn['command'] = lambda: rf.replace_char(submenu_replace_text1.get(1.0, "end"),
                                              submenu_replace_text2.get(1.0, "end"))
-    btn.pack(side="bottom")
+    btn.pack(side='bottom')
 
 
 def press_button_delete():
-    top_del = Toplevel()
-    top_del.geometry("350x250")
-    top_del.resizable(width=False, height=False)
-    top_del.config(bg="lightblue")
+    frame_destroy()
+    frame.pack(side='bottom')
     bg_top_color = "white"
-    submenu_delete_label = Label(top_del, text="Введите количество символов\n для удаления из строки:", height=2, bg="lightblue")
-    submenu_delete_text = Text(top_del, width=15, height=1, bg=bg_top_color, fg='black')
+    submenu_delete_label = Label(frame, text="Введите количество символов\n для удаления из строки:", height=2, bg="lightblue")
+    submenu_delete_text = Text(frame, width=15, height=1, bg=bg_top_color, fg='black')
     submenu_delete_label.pack()
     submenu_delete_text.pack()
-    btn = Button(top_del, text='Удалить')
+    btn = Button(frame, text='Удалить')
     if r_but.get() == 1:
-        top_del.title("Удалить с начала строки")
+        frame['text'] = 'Удалить с начала строки'
         btn['command'] = lambda: rf.delete_char(submenu_delete_text.get(1.0, "end"), True)
     if r_but.get() == 2:
-        top_del.title("Удалить с конца строки")
+        frame['text'] = 'Удалить с конца строки'
         btn['command'] = lambda: rf.delete_char(submenu_delete_text.get(1.0, "end"), False)
     btn.pack(side="bottom")
 
 
 def press_button_add():
-    top_add = Toplevel()
-    top_add.geometry("350x250")
-    top_add.resizable(width=False, height=False)
-    top_add.config(bg="lightblue")
+    frame_destroy()
+    frame.pack(side='bottom')
     bg_top_color = "white"
-    submenu_add_label = Label(top_add, text="Введите символы для\n добавления в строку:", height=2, bg="lightblue")
-    submenu_add_text = Text(top_add, width=15, height=1, bg=bg_top_color, fg='black')
+    submenu_add_label = Label(frame, text="Введите символы для\n добавления в строку:", height=2, bg="lightblue")
+    submenu_add_text = Text(frame, width=15, height=1, bg=bg_top_color, fg='black')
     submenu_add_label.pack()
     submenu_add_text.pack()
-    btn = Button(top_add, text='Добавить')
+    btn = Button(frame, text='Добавить')
     if r_but.get() == 3:
-        top_add.title("Добавить в начало строки")
+        frame['text'] = 'Добавить в начало строки'
         btn['command'] = lambda: rf.add_char(submenu_add_text.get(1.0, "end"), True)
     if r_but.get() == 4:
-        top_add.title("Добавить в конец строки")
+        frame['text'] = 'Добавить в конец строки'
         btn['command'] = lambda: rf.add_char(submenu_add_text.get(1.0, "end"), False)
     btn.pack(side="bottom")
 
@@ -123,6 +121,9 @@ r_but_add_begin_str.place(x=380, y=105)
 r_but_add_end_str = Radiobutton(root, text='Добавить в конец строки', bg=bg_root_color, value=4, variable=r_but)
 r_but_add_end_str['command'] = press_button_add
 r_but_add_end_str.place(x=380, y=135)
+
+
+frame = LabelFrame(root)
 
 
 # Главный цикл программы
